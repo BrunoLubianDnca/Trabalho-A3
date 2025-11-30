@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Regras - Jasmine Tests</title>
+    <link rel="stylesheet" href="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine.css">
+  </head>
+  <body>
+    <h2 style="font-family: Arial, Helvetica, sans-serif; text-align:center">Regras - Testes Jasmine</h2>
+    <div id="jasmine_content"></div>
+
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine.js"></script>
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/boot0.js"></script>
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/boot1.js"></script>
+
+    <!-- Business rules and specs -->
+    <script src="./regras.js"></script>
+    <script src="./regras.spec.js"></script>
+
+    <!--
+      To intentionally show failing tests (red), edit `jasmine/regras.js` and
+      change the approval thresholds (for example set nota threshold to 999).
+      Then reload this page — Jasmine will show failing tests in red.
+    -->
+  </body>
+</html>
