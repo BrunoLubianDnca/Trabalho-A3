@@ -42,7 +42,7 @@ describe('Regras - avaliarChamada (presença >= 75%)', function(){
 describe('Regras - Sistema de Chamada Escolar', function(){
   // 1. Presença mínima de 75%
   it('Presença >= 75%: 3/4 => válida (forçando erro)', function(){
-    expect(window.regras.avaliarChamada({ presentes: 3, total: 4 })).toBe('Chamada inválida') // propositalmente errado
+    expect(window.regras.avaliarChamada({ presentes: 3, total: 4 })).toBe('Chamada válida')
   })
   it('Presença < 75%: 2/4 => inválida', function(){
     expect(window.regras.avaliarChamada({ presentes: 2, total: 4 })).toBe('Chamada inválida')

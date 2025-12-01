@@ -30,6 +30,7 @@
     "@playwright/test": "^1.57.0",
     "@vitejs/plugin-react": "^5.1.1",
     "concurrently": "^8.2.0",
+    "jasmine": "^5.12.0",
     "msw": "^1.2.1",
     "playwright": "^1.57.0",
     "run-jasmine-ci": "node tools/run-jasmine-ci.js",
