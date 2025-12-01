@@ -39,6 +39,12 @@ export function login({ username, password }){
   return { ok: false, message: 'Usuário ou senha inválidos' }
 }
 
+export function userExists(username){
+  if(!username) return false
+  const users = loadUsers()
+  return users.some(u => u.username === username)
+}
+
 export function logout(){
   localStorage.removeItem(USER_KEY)
 }

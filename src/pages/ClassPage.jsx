@@ -56,6 +56,11 @@ export default function ClassPage(){
     return ()=>clearTimeout(t)
   },[id])
 
+  useEffect(()=>{
+    if(klass) document.title = `${klass.name} — Chamada Fácil`
+    return ()=>{ document.title = 'Chamada Fácil' }
+  },[klass])
+
   const counts = useMemo(()=>{
     const total = klass?.students.length || 0
     const presentes = Object.values(present).filter(Boolean).length
@@ -86,6 +91,10 @@ export default function ClassPage(){
           <H1>{klass ? klass.name : 'Turma'}</H1>
           <Small>{klass?.teacher}</Small>
         </div>
+        <div style={{textAlign:'right'}}>
+          <div style={{fontWeight:700}}>{counts.presentes} presentes de {counts.total}</div>
+          <Small>{counts.total ? Math.round((counts.presentes / counts.total) * 100) + '% presente' : ''}</Small>
+        </div>
       </div>
 
       {loading ? (
@@ -97,10 +106,10 @@ export default function ClassPage(){
         <>
           <List>
             {klass?.students.map(s=> (
-              <Card key={s.id} style={{padding:'14px'}}>
+              <Card key={s.id} style={{padding:'14px', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
                 <StudentRow>
                   <Left>
-                    <Avatar aria-hidden>{s.name.charAt(0)}</Avatar>
+                    <Avatar aria-hidden style={{background: present[s.id] ? 'linear-gradient(180deg,#ddfff0,#d1f7e6)' : 'linear-gradient(180deg,#eef4ff,#e6f0ff)', color: present[s.id] ? tokens.colors.accent : tokens.colors.primary}}>{s.name.charAt(0)}</Avatar>
                     <div>
                       <Name>{s.name}</Name>
                       <Small>{s.email || ''}</Small>
@@ -115,11 +124,11 @@ export default function ClassPage(){
           </List>
 
           <div style={{marginTop:16,display:'flex',gap:12,flexWrap:'wrap'}}>
-            <LargeButton onClick={finalize}>Finalizar chamada</LargeButton>
+            <LargeButton aria-label="Finalizar chamada" onClick={finalize}>Finalizar chamada</LargeButton>
             {summary ? (
-              <GhostButton onClick={()=>{ downloadJSON('resumo-chamada.json', summary); setSnackOpen(true); }}>Exportar JSON</GhostButton>
+              <GhostButton aria-label="Exportar resumo como JSON" onClick={()=>{ downloadJSON('resumo-chamada.json', summary); setSnackOpen(true); }}>Exportar JSON</GhostButton>
             ) : (
-              <GhostButton disabled>Exportar JSON</GhostButton>
+              <GhostButton aria-label="Exportar resumo como JSON" disabled>Exportar JSON</GhostButton>
             )}
           </div>
 

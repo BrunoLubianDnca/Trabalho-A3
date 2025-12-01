@@ -22,8 +22,8 @@ test('mark presence updates toggle and finalize shows correct summary counts', a
   expect(ausentes.length).toBeGreaterThan(0)
   fireEvent.click(ausentes[0])
 
-  // the clicked toggle should now show Presente
-  const presenteBtn = await screen.findByText(/Presente/i)
+  // the clicked toggle should now show Presente (look for switch role)
+  const presenteBtn = await screen.findByRole('switch', { name: /Presente/i })
   expect(presenteBtn).toBeInTheDocument()
 
   // finalize and check summary counts

@@ -7,7 +7,7 @@ function toNumber(v){
   return Number.isNaN(n) ? NaN : n
 }
 
-export function avaliarChamada({ presentes, total }){
+function avaliarChamada({ presentes, total }){
   const p = toNumber(presentes)
   const t = toNumber(total)
   if(Number.isNaN(p) || Number.isNaN(t)) return 'Chamada inválida'
@@ -20,3 +20,4 @@ export function avaliarChamada({ presentes, total }){
 if(typeof window !== 'undefined'){
   window.regras = { avaliarChamada }
 }
+

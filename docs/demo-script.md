@@ -4,7 +4,7 @@ Objetivo: demonstrar o fluxo principal do app em ~3 minutos: login, abrir turma,
 
 1) Preparação
 - Executar: `npm run dev` — abrir `http://localhost:5173/`.
-- Credenciais demo: `teacher` / `password` (ou registre um usuário rápido).
+- Credenciais demo: `professor` / `senha123` (ou registre um usuário rápido).
 
 2) Passo a passo (demo)
 - Tela Login (0:00–0:30)

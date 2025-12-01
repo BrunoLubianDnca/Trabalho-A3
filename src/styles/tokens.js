@@ -1,12 +1,12 @@
 export const tokens = {
   colors: {
-    bg1: '#f5f7ff',
-    bg2: '#e9f2ff',
+    bg1: '#f6f8ff',
+    bg2: '#eef6ff',
     surface: '#ffffff',
-    primary: '#2E7DFF',
-    primary600: '#1D63D6',
-    accent: '#22C55E',
-    muted: '#64748B',
+    primary: '#2563EB',
+    primary600: '#1E40AF',
+    accent: '#16A34A',
+    muted: '#475569',
     danger: '#DC2626'
   },
   radii: {
@@ -27,7 +27,7 @@ export const tokens = {
   },
   typography: {
     base: '16px',
-    h1: '22px',
-    h2: '18px'
+    h1: '26px',
+    h2: '20px'
   }
 }
