@@ -8,8 +8,22 @@ import Skeleton from '../components/Skeleton'
 import { tokens } from '../styles/tokens'
 
 const Grid = styled.div`
-  display:grid;grid-template-columns:repeat(1,1fr);gap:12px;width:100%;max-width:900px;
-  @media(min-width:720px){grid-template-columns:repeat(2,1fr)}
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 36px 32px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto 40px auto;
+  padding: 0 32px;
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 36px;
+    max-width: 1200px;
+  }
+  @media (min-width: 1300px) {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1500px;
+  }
 `
 
 const CardMeta = styled.div`
@@ -50,19 +64,31 @@ export default function DashboardPage(){
   })
 
   return (
-    <div style={{width:'100%'}}>
-      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',maxWidth:900,marginBottom:12}}>
+    <div style={{
+      width:'100%',
+      minHeight:'100vh',
+      background:'linear-gradient(120deg, #e0e7ff 0%, #f0fdfa 100%)',
+      paddingBottom:48,
+      fontFamily:'Segoe UI, Inter, Arial, sans-serif'}}>
+      <div style={{
+        display:'flex',
+        justifyContent:'space-between',
+        alignItems:'center',
+        maxWidth:1200,
+        margin:'0 auto 24px auto',
+        padding:'40px 32px 0 32px',
+        width:'100%'}}>
         <div>
-          <H1>Turmas</H1>
-          <Small>Selecione uma turma para registrar presença</Small>
+          <H1 style={{color:'#2563eb',letterSpacing:0.5}}>Turmas</H1>
+          <Small style={{color:'#2563eb',fontWeight:500}}>Selecione uma turma para registrar presença</Small>
         </div>
-        <div style={{display:'flex',gap:12}}>
-          <LargeButton onClick={()=>setShowCreate(true)} aria-label="Criar turma">Criar turma</LargeButton>
-          <GhostButton aria-label="Sair" onClick={()=>{localStorage.removeItem('chamada_user');navigate('/login')}}>Sair</GhostButton>
+        <div style={{display:'flex',gap:16}}>
+          <LargeButton style={{background:'linear-gradient(90deg,#38bdf8 0%,#2563eb 100%)',boxShadow:'0 4px 24px #38bdf855'}} onClick={()=>setShowCreate(true)} aria-label="Criar turma">Criar turma</LargeButton>
+          <GhostButton style={{color:'#2563eb',borderColor:'#2563eb'}} aria-label="Sair" onClick={()=>{localStorage.removeItem('chamada_user');navigate('/login')}}>Sair</GhostButton>
         </div>
       </div>
 
-      <div style={{maxWidth:900, marginBottom:12}}>
+      <div style={{maxWidth:600, margin:'0 auto 28px auto', padding:'0 32px'}}>
         <Input label="Buscar turma" placeholder="nome ou professor" value={search} onChange={e=>setSearch(e.target.value)} />
       </div>
 
@@ -73,20 +99,37 @@ export default function DashboardPage(){
           ))
         ) : (
           filtered.map(c => (
-            <Card key={c.id} style={{padding:18, borderRadius: tokens.radii.md}}>
+            <Card
+              key={c.id}
+              style={{
+                padding: 22,
+                borderRadius: tokens.radii.lg,
+                boxShadow: '0 8px 32px #2563eb22, 0 1.5px 8px #38bdf855',
+                border: '1.5px solid #38bdf8',
+                background: 'linear-gradient(120deg,#fff 80%,#e0f2fe 100%)',
+                transition: 'box-shadow 0.18s, border 0.18s, transform 0.18s',
+                minHeight: 120,
+                marginBottom: 0,
+                position: 'relative',
+                overflow: 'hidden',
+                cursor: 'pointer',
+              }}
+              onMouseOver={e=>e.currentTarget.style.boxShadow='0 12px 36px #2563eb33, 0 2px 12px #38bdf855'}
+              onMouseOut={e=>e.currentTarget.style.boxShadow='0 8px 32px #2563eb22, 0 1.5px 8px #38bdf855'}
+            >
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
                 <div>
-                  <div style={{fontWeight:700}}>{c.name}</div>
-                  <Small>{c.teacher}</Small>
+                  <div style={{fontWeight:700,fontSize:18,color:'#2563eb',marginBottom:2}}>{c.name}</div>
+                  <Small style={{color:'#0e7490',fontWeight:600}}>{c.teacher}</Small>
                 </div>
                 <div style={{textAlign:'right'}}>
-                  <div style={{fontWeight:700,fontSize:18}}>{c.students.length}</div>
-                  <Small>alunos</Small>
+                  <div style={{fontWeight:700,fontSize:22,color:'#0ea5e9'}}>{c.students.length}</div>
+                  <Small style={{color:'#2563eb'}}>alunos</Small>
                 </div>
               </div>
               <CardMeta>
                 <Link to={`/class/${c.id}`} style={{textDecoration:'none'}}>
-                  <GhostButton aria-label={`Abrir chamada da turma ${c.name}`}>Abrir chamada</GhostButton>
+                  <GhostButton style={{color:'#fff',background:'linear-gradient(90deg,#38bdf8 0%,#2563eb 100%)',border:'none',fontWeight:700,boxShadow:'0 2px 8px #2563eb33'}} aria-label={`Abrir chamada da turma ${c.name}`}>Abrir chamada</GhostButton>
                 </Link>
               </CardMeta>
             </Card>
