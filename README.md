@@ -1,5 +1,126 @@
 # Chamada Fácil
 
+**Trabalho de Apresentação — Chamada Fácil**
+
+**Autor:** Bruno Lubian
+**Disciplina:** [Preencha aqui] — [Professor: Preencha aqui]
+**Data:** Dezembro de 2025
+
+**Resumo**
+- Este projeto é uma aplicação single-page (SPA) desenvolvida em React + Vite chamada **Chamada Fácil**, criada como trabalho acadêmico para demonstrar um fluxo de registro de presença, regras de validação (testadas com Jasmine), testes unitários (Jest + React Testing Library) e conveniências para demonstração docente.
+
+**Objetivo do trabalho**
+- Fornecer uma ferramenta simples e demonstrável para registrar chamadas de turma, aplicar regras de validação de presença e exportar resultados. O foco está na clareza, acessibilidade básica e testabilidade — com passos práticos para mostrar testes verdes/vermelhos ao professor.
+
+**Tecnologias**
+- React 18 + Vite
+- react-router-dom v6
+- styled-components
+- Jest + React Testing Library (testes unitários)
+- Jasmine (testes de regras, runner em browser e Node)
+- Playwright (auxiliares de CI)
+
+**Principais telas e fluxos**
+- Login / Register (autenticação simples via localStorage)
+- Dashboard (lista de turmas)
+- Tela da Turma (registrar presença, exportar JSON, histórico)
+- Runner Jasmine: `jasmine/index.html` — executa os specs que validam as regras de negócio
+
+**Regras implementadas (sumário)**
+- Presença mínima para chamada válida: 75%
+- Atraso tolerado: até 15 minutos
+- Limite de faltas por mês: 3
+- Justificativa obrigatória para ausência (mínimo 5 caracteres)
+- Presença obrigatória em avaliações
+- Frequência mensal mínima: 80%
+- Bloqueio por excesso de faltas: > 5
+- Tolerância de atrasos no mês: até 3
+- Presença em atividades extracurriculares: 60%
+- Ausência justificada não conta como falta
+
+Essas regras estão implementadas em `jasmine/regras.js` e cobertas por `jasmine/regras.spec.js`.
+
+**Como executar o projeto (passo a passo)**
+
+1. Pré-requisitos
+   - Node.js LTS (ex.: 18+)
+   - Git
+
+2. Instalar dependências
+   ```powershell
+   npm install
+   ```
+
+3. Rodar em modo dev (Vite)
+   ```powershell
+   npm run dev
+   ```
+   - Observe no terminal a porta usada pelo Vite (padrão `5173`).
+   - Abra a aplicação em `http://localhost:<porta>/`.
+
+4. Runner Jasmine (visual no navegador)
+   - Abra `http://localhost:<porta>/jasmine/index.html` para ver a interface do Jasmine que roda os specs das regras.
+
+5. Rodar os testes (Terminal)
+   - Testes Jasmine (Node runner):
+     ```powershell
+     node tools/run-jasmine-node.cjs
+     ```
+     Saída esperada: `30 specs, 0 failures` (quando limiar das regras estiver em 75%).
+
+   - Testes Jest (React):
+     ```powershell
+     npx jest --config=jest.config.cjs
+     ```
+
+**Demonstrando fail → pass (roteiro para a banca/professor)**
+1. Forçar falha (altera limiar das regras para 90%):
+   ```powershell
+   node tools/set-regras-threshold.js 90
+   ```
+2. Rodar o runner Node para ver os specs falhando:
+   ```powershell
+   node tools/run-jasmine-node.cjs
+   ```
+   Você verá specs em vermelho (failures > 0).
+3. Restaurar comportamento correto (75%) e rodar novamente:
+   ```powershell
+   node tools/set-regras-threshold.js 75
+   node tools/run-jasmine-node.cjs
+   ```
+   Agora os specs devem aparecer verdes.
+
+**Scripts úteis (npm)**
+- `npm run dev` — inicia Vite
+- `npm run test` — atualmente aponta para o runner headless (ajustes locais podem existir)
+- `node tools/run-jasmine-node.cjs` — executa Jasmine specs em Node (terminal)
+- `node tools/set-regras-threshold.js 90` / `75` — alterna limiar das regras para demo
+
+Sugestão: para facilitar a demonstração, você pode adicionar os scripts a `package.json` (ex.: `jasmine:node`, `jasmine:fail`, `jasmine:pass`). Posso fazer isso para você.
+
+**Observações técnicas e dicas**
+- A autenticação é propositalmente simples para fins didáticos e está baseada em `localStorage` (`src/services/auth.js`).
+- Testes unitários com Jest usam `jsdom`; se executar no CI, atente para instalar `jest-environment-jsdom` se necessário.
+- Se o navegador mostrar specs verdes/errados após editar `jasmine/regras.js`, faça hard refresh (Ctrl+F5) para evitar cache.
+
+**Estrutura de arquivos (resumida)**
+- `src/` — código React
+- `src/pages` — telas (Login, Dashboard, Class)
+- `src/components` — componentes UI
+- `src/services` — autenticação e helpers
+- `jasmine/` — `regras.js` (regras) e `regras.spec.js` (specs)
+- `tools/` — scripts auxiliares (runner e utilitários para demo)
+
+**Referências e anexos**
+- Runner Jasmine: `jasmine/index.html` (abra no navegador)
+- Testes React: `src/tests/` (ex.: `LoginPage.test.jsx`)
+
+---
+Se quiser, faço um commit adicional com scripts npm de conveniência, ou gero um slide/PDF curto com os pontos principais para apresentação. Quer que eu adicione os scripts e empurre as alterações agora? 
+
+***Fim do documento***
+# Chamada Fácil
+
 Aplicativo de exemplo para registrar presença de alunos.
 
 Executar localmente:
