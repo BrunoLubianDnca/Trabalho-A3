@@ -77,12 +77,12 @@ export default function ClassPage() {
       const raw = localStorage.getItem(`registros_${c.id}_${hoje}`);
       let presentInit = {};
       c.students.forEach(s => {
-        presentInit[s.id] = false;
+        presentInit[String(s.id)] = false;
       });
       if (raw) {
         const registrosDia = JSON.parse(raw);
         registrosDia.forEach(r => {
-          if (r.status === 'presente') presentInit[r.alunoId] = true;
+          if (r.status === 'presente') presentInit[String(r.alunoId)] = true;
         });
         setRegistros(registrosDia);
       }
@@ -165,7 +165,8 @@ const List = styled.div`
     const hoje = agora.format('YYYY-MM-DD');
     const raw = localStorage.getItem(`registros_${klass.id}_${hoje}`);
     const registrosDia = raw ? JSON.parse(raw) : [];
-    if (registrosDia.some(r => r.alunoId === sid)) {
+    const sidStr = String(sid)
+    if (registrosDia.some(r => String(r.alunoId) === sidStr)) {
       setErroRegistro('Já registrado.');
       return;
     }
@@ -177,8 +178,8 @@ const List = styled.div`
     }
     // Registrar
     const registro = {
-      id: 'r' + Date.now() + sid,
-      alunoId: sid,
+      id: 'r' + Date.now() + sidStr,
+      alunoId: sidStr,
       alunoNome: aluno.name,
       status,
       horario: agora.format('HH:mm'),
@@ -188,6 +189,8 @@ const List = styled.div`
     const novos = [...registrosDia, registro];
     localStorage.setItem(`registros_${klass.id}_${hoje}`, JSON.stringify(novos));
     setRegistros(novos);
+    // Atualiza também o estado `present` imediatamente para refletir na UI
+    setPresent(p => ({ ...p, [sidStr]: status === 'presente' }));
     setErroRegistro('');
     setJustificativas(j => ({...j, [sid]: ''}));
   }
